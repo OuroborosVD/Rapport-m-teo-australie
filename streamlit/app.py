@@ -4,9 +4,8 @@ from pathlib import Path
 import altair as alt
 import joblib
 
-# ========================
 # CONFIG GÉNÉRALE
-# ========================
+
 
 st.set_page_config(
     page_title="Prévision météo",
@@ -14,9 +13,9 @@ st.set_page_config(
     layout="wide"
 )
 
-# ========================
+
 # STYLES PERSONNALISÉS (CSS)
-# ========================
+
 
 st.markdown(
     """
@@ -72,17 +71,17 @@ st.markdown(
     unsafe_allow_html=True
 )
 
-# ========================
+
 # CONSTANTES
-# ========================
+
 
 MODEL_PATH = "models/hgb_model.joblib"  # <-- À créer plus tard avec votre vrai modèle
 THRESHOLD = 0.69  # seuil décisionnel
 
 
-# ========================
+
 # CHARGEMENT DES DONNÉES
-# ========================
+
 
 @st.cache_data
 def load_data(path: str):
@@ -94,9 +93,9 @@ def load_data(path: str):
 df = load_data("data/weatherAUS_encoded.csv")
 
 
-# ========================
+
 # CHARGEMENT DU MODÈLE
-# ========================
+
 
 @st.cache_resource
 def load_model(path: str):
@@ -118,9 +117,9 @@ if df is not None:
         base_input = df[feature_cols].iloc[0:1].copy()
 
 
-# ========================
+
 # MENU SIDEBAR
-# ========================
+
 
 st.sidebar.title("🌦️ Projet météo Australie")
 page = st.sidebar.radio(
@@ -131,9 +130,8 @@ st.sidebar.markdown("---")
 st.sidebar.write("Projet DataScientest – Iris, Jean-Paul & Louis")
 
 
-# ========================
+
 # PAGE : ACCUEIL
-# ========================
 
 if page == "Accueil":
 
@@ -170,9 +168,9 @@ if page == "Accueil":
         st.error("Impossible de charger le fichier weatherAUS_encoded.csv")
 
 
-# ========================
+
 # PAGE : EXPLORATION
-# ========================
+
 
 elif page == "Exploration des données":
 
@@ -225,9 +223,9 @@ elif page == "Exploration des données":
             st.info("La colonne RainTomorrow n'existe pas.")
 
 
-# ========================
+
 # PAGE : MODÉLISATION
-# ========================
+
 
 elif page == "Modélisation":
 
@@ -296,9 +294,9 @@ elif page == "Modélisation":
     )
 
 
-# ========================
+
 # PAGE : PRÉDICTION
-# ========================
+
 
 elif page == "Prédiction":
 
