@@ -1,20 +1,43 @@
-Projet météo – Travail personnel (Iris)
+## 🌦️ Description du projet
 
-Ce dépôt contient **ma contribution personnelle** au projet de prévision de la
-variable `RainTomorrow` (pluie le lendemain : oui/non).
+L’objectif est de construire un modèle capable de prédire s’il pleuvra le lendemain à partir des données météo du dataset officiel **WeatherAUS**.
 
- 📂 Organisation
+## 📌 Étapes principales du projet
 
-- `notebooks/` : notebooks d'exploration et de modélisation
-- `src/` : scripts Python utilisés pour entraîner et tester des modèles
-- `outputs/` : graphiques, tableaux et autres résultats exportés
+### 1. Nettoyage & prétraitement
+- Gestion des valeurs manquantes  
+- Encodage des variables  
+- Reconstruction de la dimension temporelle  
 
- 🧠 Travail réalisé
+### 2. Découpage chronologique
+- **Train** = toutes les données sauf les 12 derniers mois  
+- **Test** = les 12 derniers mois  
 
-J'ai travaillé en particulier sur :
-- l'entraînement et l'optimisation d'un **RandomForest**,
-- la comparaison des scores (F1, rappel, précision) entre un modèle de base et un modèle optimisé,
-- l'interprétation des résultats (meilleure détection des jours de pluie).
+### 3. Traitement du déséquilibre de classe
+- Undersampling pour obtenir un meilleur équilibre pluie / non-pluie  
 
-Certains fichiers d'optimisation ont été réalisés en collaboration
-et ne sont pas tous présents ici, mais les résultats sont repris dans le dépôt d'équipe.
+## 🤖 Modélisation
+
+Les modèles testés incluent :
+
+- Régression Logistique  
+- RandomForest (base + optimisation)  
+- Gradient Boosting  
+- **HistGradientBoosting (modèle final)**  
+
+## ⚙️ Optimisation
+
+- Recherche d’hyperparamètres (**RandomizedSearchCV**)  
+- Sélection du **seuil de décision**  
+- Ajout de **variables mémoire** (lag features)  
+- Validation chronologique  
+## 🏆 Modèle final retenu : HistGradientBoostingClassifier
+
+Ce modèle a offert :
+
+- Le **meilleur score F1 sur la classe pluie**  
+- Un excellent compromis **précision / rappel**  
+- Une **rapidité de calcul supérieure**  
+- Une **accuracy globale d'environ 0.86**  
+
+Ce modèle est donc celui retenu pour le rendu final du projet.
