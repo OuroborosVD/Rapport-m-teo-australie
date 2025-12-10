@@ -1,51 +1,77 @@
-# Récapitulatif des modèles de l'équipe
+ Récapitulatif des modèles de l'équipe
+Ce document résume les modèles testés dans le cadre du projet de prévision météo ainsi que leurs performances principales.
 
-Ce document résume les modèles testés dans le cadre du projet météo
-et leurs performances principales.
+1. Modèles explorés (baseline)
 
-## 1. Modèles de Louis
+Plusieurs modèles simples ont d'abord été développés pour établir une baseline :
 
-Louis a travaillé sur les premières étapes de modélisation :
+Régression logistique
 
-- Mise en place de modèles de base (régression logistique, arbres de décision, etc.)
-- Établissement d'une baseline de performance sur la variable `RainTomorrow`.
+Arbre de décision
 
-Ces modèles ont servi de point de départ pour comparer les approches plus avancées.
+RandomForest (version non optimisée)
 
-## 2. Modèle de Jean-Paul – XGBoost
+Ces premiers modèles ont permis de définir des performances de référence sur la variable RainTomorrow.
 
-Jean-Paul a testé un modèle **XGBoost** sur les données encodées.
+2. Modèle XGBoost
+
+Un modèle XGBoost a été testé afin d'explorer un algorithme de gradient boosting plus avancé.
 
 Objectifs :
-- Explorer un modèle de gradient boosting plus complexe,
-- Comparer ses performances avec les autres modèles de l'équipe.
 
-Les résultats n'ont pas permis d'améliorer suffisamment le F1-score sur la classe *pluie*,
-mais ce modèle a été important dans la démarche comparative.
-## 3. Modèle d'Iris – RandomForest (base vs optimisé)
+Comparer un modèle plus complexe aux modèles classiques
 
-### Modèle de base
+Évaluer s'il permettait d'améliorer la détection des jours de pluie
 
-- F1 pluie : 0.600
-- Rappel pluie : 0.487
-- Précision pluie : 0.782
+Résultat :
+Même si les performances n'ont pas surpassé les autres modèles, XGBoost a joué un rôle important dans la démarche comparative.
 
-### Modèle optimisé (RandomizedSearchCV)
+3. Modèle RandomForest (base vs optimisé)
+🔹 Modèle de base
 
-- F1 pluie : 0.611
-- Rappel pluie : 0.520
-- Précision pluie : 0.741
+F1 pluie : 0.600
 
-L'optimisation a permis :
-- d'améliorer le rappel (meilleure détection des jours de pluie),
-- d'obtenir un meilleur équilibre entre précision et rappel.
+Rappel pluie : 0.487
 
-## 4. Modèle final retenu
+Précision pluie : 0.782
 
-Le modèle **RandomForest optimisé** :
+🔹 Modèle optimisé (RandomizedSearchCV)
 
-- il offre le meilleur compromis F1 / rappel sur la classe pluie,
-- il est stable et robuste,
-- il reste simple à déployer et interpréter.
+F1 pluie : 0.611
 
-Ce modèle servira de base pour la suite du projet (présentation, Streamlit, etc.).
+Rappel pluie : 0.520
+
+Précision pluie : 0.741
+
+💡 L’optimisation a permis :
+
+d’améliorer la détection des jours de pluie (rappel plus élevé),
+
+d’obtenir un meilleur équilibre précision / rappel,
+
+d’augmenter légèrement le score F1.
+
+4. Modèle final retenu : HistGradientBoosting
+
+Après comparaison de l’ensemble des modèles (baseline, XGBoost, RandomForest optimisé),
+le modèle HistGradientBoostingClassifier a été choisi comme modèle final.
+
+🔹 Performances finales :
+
+Seuil optimisé : 0.69
+
+F1 pluie : 0.69
+
+Précision pluie : 0.71
+
+Rappel pluie : 0.67
+
+Accuracy globale : 0.86
+
+🏁 Conclusion
+
+Le RandomForest optimisé constitue un excellent modèle intermédiaire et interprétable.
+
+Le HistGradientBoostingClassifier est retenu comme meilleur modèle final, offrant les meilleures performances globales sur la variable pluie.
+
+L'ensemble des modèles testés a permis d'aboutir à une sélection justifiée et cohérente avec les objectifs du projet.
